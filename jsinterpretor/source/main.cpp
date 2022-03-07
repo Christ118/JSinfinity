@@ -3,6 +3,7 @@
 #include"../include/system.h"
 #include"../include/gui.h"
 #include<windows.h>
+
  auto console=GetStdHandle(STD_OUTPUT_HANDLE);
 v8::Local<v8::ObjectTemplate> fileobjT;
 void Version(const v8::FunctionCallbackInfo<v8::Value> &args)
@@ -35,9 +36,19 @@ v8::Local<v8::Context> fulljscontext(v8::Isolate *iso)
   global->Set(iso,"input",v8::FunctionTemplate::New(iso,input));
   global->Set(iso,"file",v8::FunctionTemplate::New(iso,file));
   global->Set(iso,"window",v8::FunctionTemplate::New(iso,Window::newWindow));
+   global->Set(iso,"button",v8::FunctionTemplate::New(iso,Window::newButton));
+    global->Set(iso,"spinbutton",v8::FunctionTemplate::New(iso,Window::newSpinbutton));
+     global->Set(iso,"checkbutton",v8::FunctionTemplate::New(iso,Window::newCheckbutton));
+      global->Set(iso,"switchbutton",v8::FunctionTemplate::New(iso,Window::newSwitch));
+   global->Set(iso,"box",v8::FunctionTemplate::New(iso,Window::newBox));
   global->Set(iso,"cmd",v8::FunctionTemplate::New(iso,systemcmd));
   global->Set(iso,"File",fileobjT);
   global->Set(iso,"Window",Window::makeWindowobjt(iso));
+  global->Set(iso,"Button",Window::makebuttonobjt(iso));
+   global->Set(iso,"Spinbutton",Window::makespinbuttonobjt(iso));
+      global->Set(iso,"Checkbutton",Window::makecheckbuttonobjt(iso));
+      global->Set(iso,"Switch",Window::makeswitchobjt(iso));
+  global->Set(iso,"Box",Window::makeboxobjt(iso));
   fileobjT->SetAccessor(v8::String::NewFromUtf8Literal(iso,"id"),File::Getid);
   fileobjT->Set(iso,"open",v8::FunctionTemplate::New(iso,File::Open));
   fileobjT->Set(iso,"read",v8::FunctionTemplate::New(iso,File::Read));
@@ -137,7 +148,7 @@ bool executejs(v8::Isolate *iso,v8::Local<v8::String> source,v8::Local<v8::Strin
 void jsshell(v8::Local<v8::Context> context , v8::Platform *platform)
 {
 SetConsoleTextAttribute(console, FOREGROUND_BLUE|FOREGROUND_INTENSITY);
-std::cout<<"JS shell made by elodream  by  elodream with(v8 "<< v8::V8::GetVersion()<<") copyright 2022 \nall right reserved pleaze support us"<<std::endl;
+std::cout<<"JS shell made by elodream  by  elodream using c++ with (v8 "<< v8::V8::GetVersion()<<") and GTK+ copyright 2022 \nall right reserved please support us"<<std::endl;
 v8::Local<v8::String> name( v8::String::NewFromUtf8Literal(context->GetIsolate(), "(shell)"));
 
    

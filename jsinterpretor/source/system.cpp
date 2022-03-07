@@ -117,4 +117,5 @@ void File::Run(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
      File *p=getfile(args.Holder());
    executejs(args.GetIsolate(),readfile(p->f,args.GetIsolate()),v8::String::NewFromUtf8(args.GetIsolate(),"ki").ToLocalChecked());
+   fclose(p->f);
 }
