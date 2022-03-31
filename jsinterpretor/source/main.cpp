@@ -2,57 +2,41 @@
 #include<gtkmm-3.0/gtkmm.h>
 #include"../include/system.h"
 #include"../include/gui.h"
+#include"../include/io.h"
 #include<windows.h>
 
- auto console=GetStdHandle(STD_OUTPUT_HANDLE);
+auto console=GetStdHandle(STD_OUTPUT_HANDLE);
+
 v8::Local<v8::ObjectTemplate> fileobjT;
-void Version(const v8::FunctionCallbackInfo<v8::Value> &args)
-{
-  std::cout<<VERSION<<std::endl;
-}
-
-void file(const v8::FunctionCallbackInfo<v8::Value> & args)
-{int id=args[0]->Int32Value(args.GetIsolate()->GetCurrentContext()).FromJust();
-int c=args[1]->Int32Value(args.GetIsolate()->GetCurrentContext()).FromJust();
-v8::String::Utf8Value path (args.GetIsolate(),args[0]);
-File * p = new File(*path);
-v8::Local<v8::Object> o= fileobjT->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
- 
- o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
-args.GetReturnValue().Set(o);
-}
-
 /* 
-
 this function  create the context of  js 
+------------------@elodream---------------------
 */
 v8::Local<v8::Context> fulljscontext(v8::Isolate *iso)
 {
   v8::Local<v8::ObjectTemplate> global = v8::ObjectTemplate::New(iso);
-  fileobjT = v8::ObjectTemplate::New(iso);
-  fileobjT->SetInternalFieldCount(1);
-  global->Set(iso,"version",v8::FunctionTemplate::New(iso,Version));
-  global->Set(iso,"print",v8::FunctionTemplate::New(iso,print));
-  global->Set(iso,"input",v8::FunctionTemplate::New(iso,input));
-  global->Set(iso,"file",v8::FunctionTemplate::New(iso,file));
-  global->Set(iso,"window",v8::FunctionTemplate::New(iso,Window::newWindow));
-   global->Set(iso,"button",v8::FunctionTemplate::New(iso,Window::newButton));
-    global->Set(iso,"spinbutton",v8::FunctionTemplate::New(iso,Window::newSpinbutton));
-     global->Set(iso,"checkbutton",v8::FunctionTemplate::New(iso,Window::newCheckbutton));
-      global->Set(iso,"switchbutton",v8::FunctionTemplate::New(iso,Window::newSwitch));
-   global->Set(iso,"box",v8::FunctionTemplate::New(iso,Window::newBox));
-  global->Set(iso,"cmd",v8::FunctionTemplate::New(iso,systemcmd));
-  global->Set(iso,"File",fileobjT);
-  global->Set(iso,"Window",Window::makeWindowobjt(iso));
-  global->Set(iso,"Button",Window::makebuttonobjt(iso));
-   global->Set(iso,"Spinbutton",Window::makespinbuttonobjt(iso));
-      global->Set(iso,"Checkbutton",Window::makecheckbuttonobjt(iso));
-      global->Set(iso,"Switch",Window::makeswitchobjt(iso));
-  global->Set(iso,"Box",Window::makeboxobjt(iso));
-  fileobjT->SetAccessor(v8::String::NewFromUtf8Literal(iso,"id"),File::Getid);
-  fileobjT->Set(iso,"open",v8::FunctionTemplate::New(iso,File::Open));
-  fileobjT->Set(iso,"read",v8::FunctionTemplate::New(iso,File::Read));
-  fileobjT->Set(iso,"run",v8::FunctionTemplate::New(iso,File::Run));
+  
+ 
+  global->Set(iso,"version",v8::FunctionTemplate::New(iso,System::version));
+  global->Set(iso,"Window",Gui::makeWindowobjt(iso));
+  global->Set(iso,"Button",Gui::makebuttonobjt(iso));
+  global->Set(iso,"Spinbutton",Gui::makespinbuttonobjt(iso));
+  global->Set(iso,"Checkbutton",Gui::makecheckbuttonobjt(iso));
+  global->Set(iso,"Switch",Gui::makeswitchobjt(iso));
+  global->Set(iso,"Box",Gui::makeboxobjt(iso));
+  
+  global->Set(iso,"window",v8::FunctionTemplate::New(iso,Gui::newWindow));
+  global->Set(iso,"button",v8::FunctionTemplate::New(iso,Gui::newButton));
+  global->Set(iso,"spinbutton",v8::FunctionTemplate::New(iso,Gui::newSpinbutton));
+  global->Set(iso,"checkbutton",v8::FunctionTemplate::New(iso,Gui::newCheckbutton));
+  global->Set(iso,"switchbutton",v8::FunctionTemplate::New(iso,Gui::newSwitch));
+  global->Set(iso,"box",v8::FunctionTemplate::New(iso,Gui::newBox));
+  global->Set(iso,"cmd",v8::FunctionTemplate::New(iso,System::systemcmd));
+  
+  global->Set(iso,"File",Io::makefileobjt(iso));
+  global->Set(iso,"print",v8::FunctionTemplate::New(iso,Io::print));
+  global->Set(iso,"input",v8::FunctionTemplate::New(iso,Io::input));
+  
   return v8::Context::New(iso,NULL,global);
 }
 
@@ -148,11 +132,12 @@ bool executejs(v8::Isolate *iso,v8::Local<v8::String> source,v8::Local<v8::Strin
 void jsshell(v8::Local<v8::Context> context , v8::Platform *platform)
 {
 SetConsoleTextAttribute(console, FOREGROUND_BLUE|FOREGROUND_INTENSITY);
+
+
 std::cout<<"JS shell made by elodream  by  elodream using c++ with (v8 "<< v8::V8::GetVersion()<<") and GTK+ copyright 2022 \nall right reserved please support us"<<std::endl;
 v8::Local<v8::String> name( v8::String::NewFromUtf8Literal(context->GetIsolate(), "(shell)"));
 
    
-  
 while(true)
 {
 SetConsoleTextAttribute(console,FOREGROUND_BLUE|FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY) ;
@@ -168,13 +153,12 @@ executejs(context->GetIsolate(),v8::String::NewFromUtf8(context->GetIsolate(),st
 printf("\n");
 }
 
-void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,
-            char* argv[]) {
+void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,char* argv[]) {
 
-              std::string h=argv[1];
-               SetConsoleTextAttribute(console,FOREGROUND_INTENSITY) ;
-              FILE *f=fopen(argv[1],"rb");
-            executejs(iso,readfile(f,iso),v8::String::NewFromUtf8(iso,h.c_str()).ToLocalChecked());
+        std::string h=argv[1];
+        SetConsoleTextAttribute(console,FOREGROUND_INTENSITY) ;
+        FILE *f=fopen(argv[1],"rb");
+        executejs(iso,readfile(f,iso),v8::String::NewFromUtf8(iso,h.c_str()).ToLocalChecked());
             
           
   
@@ -186,7 +170,7 @@ void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,
 int main (int argc ,char *argv[])
 {
   int argn=1;
-  Window::app = Gtk::Application::create(argn, argv);
+  Gui::app = Gtk::Application::create(argn, argv);
 
   v8::V8::InitializeICUDefaultLocation(argv[0]);
   v8::V8::InitializeExternalStartupData(argv[0]);
