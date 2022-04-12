@@ -3,7 +3,7 @@
 #include"../include/system.h"
 #include"../include/gui.h"
 #include"../include/io.h"
-#include<windows.h>
+
 
 auto console=GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -16,13 +16,15 @@ v8::Local<v8::Context> fulljscontext(v8::Isolate *iso)
 {
   v8::Local<v8::ObjectTemplate> global = v8::ObjectTemplate::New(iso);
   
- 
   global->Set(iso,"version",v8::FunctionTemplate::New(iso,System::version));
   global->Set(iso,"Window",Gui::makeWindowobjt(iso));
   global->Set(iso,"Button",Gui::makebuttonobjt(iso));
   global->Set(iso,"Spinbutton",Gui::makespinbuttonobjt(iso));
   global->Set(iso,"Checkbutton",Gui::makecheckbuttonobjt(iso));
   global->Set(iso,"Switch",Gui::makeswitchobjt(iso));
+  global->Set(iso,"Entry",Gui::makeentryobjt(iso));
+  global->Set(iso,"Image",Gui::makeimageobjt(iso));
+  global->Set(iso,"Label",Gui::makelabelobjt(iso));
   global->Set(iso,"Box",Gui::makeboxobjt(iso));
   
   global->Set(iso,"window",v8::FunctionTemplate::New(iso,Gui::newWindow));
@@ -30,10 +32,15 @@ v8::Local<v8::Context> fulljscontext(v8::Isolate *iso)
   global->Set(iso,"spinbutton",v8::FunctionTemplate::New(iso,Gui::newSpinbutton));
   global->Set(iso,"checkbutton",v8::FunctionTemplate::New(iso,Gui::newCheckbutton));
   global->Set(iso,"switchbutton",v8::FunctionTemplate::New(iso,Gui::newSwitch));
+  global->Set(iso,"entry",v8::FunctionTemplate::New(iso,Gui::newentry));
+  global->Set(iso,"image",v8::FunctionTemplate::New(iso,Gui::newimage));
+  global->Set(iso,"label",v8::FunctionTemplate::New(iso,Gui::newlabel));
   global->Set(iso,"box",v8::FunctionTemplate::New(iso,Gui::newBox));
   global->Set(iso,"cmd",v8::FunctionTemplate::New(iso,System::systemcmd));
+
   
   global->Set(iso,"File",Io::makefileobjt(iso));
+  global->Set(iso,"open",v8::FunctionTemplate::New(iso,Io::Open));
   global->Set(iso,"print",v8::FunctionTemplate::New(iso,Io::print));
   global->Set(iso,"input",v8::FunctionTemplate::New(iso,Io::input));
   
@@ -113,12 +120,18 @@ bool executejs(v8::Isolate *iso,v8::Local<v8::String> source,v8::Local<v8::Strin
     v8::String::Utf8Value res(iso,result);
     if (!result->IsNullOrUndefined())
     {
+
       
-      SetConsoleTextAttribute(console,FOREGROUND_GREEN|FOREGROUND_INTENSITY) ;
+      SetConsoleTextAttribute(console,FOREGROUND_GREEN|FOREGROUND_INTENSITY) ;    
+      printf("%s\n",*res);
+    }
+    /*else 
+    {
+      SetConsoleTextAttribute(console,FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY) ;
 
       printf("%s\n",*res);
     }
-        
+     */   
   }
   return true;
 
@@ -145,10 +158,11 @@ char buffer[280];
 
 printf(">>>");
 char* str = fgets(buffer, 280, stdin);
-
+if (str == NULL) break;
 v8::HandleScope handle_scope(context->GetIsolate());
 executejs(context->GetIsolate(),v8::String::NewFromUtf8(context->GetIsolate(),str).ToLocalChecked(),name);
-
+while (v8::platform::PumpMessageLoop(platform, context->GetIsolate()))
+      continue;
 }
 printf("\n");
 }
@@ -210,7 +224,7 @@ v8::V8::SetFlagsFromCommandLine(&argc, argv, true);
   }
    isolate->Dispose();
    v8::V8::Dispose();
- 
+ system("pause");
   return  0;
 
 }

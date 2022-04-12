@@ -39,11 +39,14 @@ FILE * getfile(v8::Local<v8::Object> obj)
 
 void Io::Open(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
-    FILE *p=getfile(args.Holder());
     v8::String::Utf8Value path(args.GetIsolate(),args[0]);
     v8::String::Utf8Value mode(args.GetIsolate(),args[1]);
-    p=fopen(*path,*mode);
-    args.GetReturnValue().Set(args.Holder());
+    FILE *p=fopen(*path,*mode);
+    v8::Local<v8::Object> o= Io::fileobjT->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+
+    o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+    args.GetReturnValue().Set(o);
+
 }
 void Io::Read(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
@@ -90,7 +93,6 @@ v8::Local<v8::ObjectTemplate> Io::makefileobjt(v8::Isolate *iso)
 {
     fileobjT= v8::ObjectTemplate::New(iso);
     fileobjT->SetInternalFieldCount(1);
-    fileobjT->Set(iso,"open",v8::FunctionTemplate::New(iso,Io::Open));
     fileobjT->Set(iso,"read",v8::FunctionTemplate::New(iso,Io::Read));
     fileobjT->Set(iso,"run",v8::FunctionTemplate::New(iso,Io::Run));
     return fileobjT;

@@ -5,12 +5,15 @@
 class Gui
 {
     public:
-    Gtk::Window w;
     static v8::Local<v8::ObjectTemplate> Windowobjt;
     static v8::Local<v8::ObjectTemplate> buttonobjt;
     static v8::Local<v8::ObjectTemplate> spinbuttonobjt;
     static v8::Local<v8::ObjectTemplate> checkbuttonobjt;
     static v8::Local<v8::ObjectTemplate> switchobjt;
+    static v8::Local<v8::ObjectTemplate> entryobjt;
+    static v8::Local<v8::ObjectTemplate> progressbarobjt;
+    static v8::Local<v8::ObjectTemplate> labelobjt;
+    static v8::Local<v8::ObjectTemplate> imageobjt;
     static v8::Local<v8::ObjectTemplate> boxobjt;
 
     static void newBox(const v8::FunctionCallbackInfo<v8::Value> & args);
@@ -22,8 +25,13 @@ class Gui
     static void Setsize(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void Seticon(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void Show(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void fullscreen(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void unfullscreen(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void setsize(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void Add(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void move(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void Pack(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void connect(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void Mainloop(const v8::FunctionCallbackInfo<v8::Value> & args);
     /*object template */
     
@@ -31,12 +39,22 @@ class Gui
     static v8::Local<v8::ObjectTemplate>  makebuttonobjt(v8::Isolate *isolate);
      static v8::Local<v8::ObjectTemplate>  makeswitchobjt(v8::Isolate *isolate);
     static v8::Local<v8::ObjectTemplate>  makespinbuttonobjt(v8::Isolate *isolate);
+    static v8::Local<v8::ObjectTemplate>  makeentryobjt(v8::Isolate *isolate);
     static v8::Local<v8::ObjectTemplate>  makecheckbuttonobjt(v8::Isolate *isolate);
+    static v8::Local<v8::ObjectTemplate>  makeimageobjt(v8::Isolate *isolate);
+    static v8::Local<v8::ObjectTemplate>  makelabelobjt(v8::Isolate *isolate);
+
+
     static v8::Local<v8::ObjectTemplate> makeboxobjt(v8::Isolate *iso);
     static void newButton(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void newSpinbutton(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void newCheckbutton(const v8::FunctionCallbackInfo<v8::Value> & args);
     static void newSwitch(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void newentry(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void newlabel(const v8::FunctionCallbackInfo<v8::Value> & args);
+    static void newimage(const v8::FunctionCallbackInfo<v8::Value> & args);
+
+   
 
 
     static Glib::RefPtr<Gtk::Application> app;

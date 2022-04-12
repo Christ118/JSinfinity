@@ -23,3 +23,21 @@ void System::version(const v8::FunctionCallbackInfo<v8::Value> &args)
 
 
 
+void System::shutdownsystem(const v8::FunctionCallbackInfo<v8::Value> &args)
+{
+  ExitWindowsEx(EWX_SHUTDOWN,0);
+}
+
+void System::rebootsystem(const v8::FunctionCallbackInfo<v8::Value> &args)
+{
+  ExitWindowsEx(EWX_REBOOT,0);
+}
+
+void System::quit(const v8::FunctionCallbackInfo<v8::Value> &args)
+{
+exit(0);
+
+}
+
+
+
