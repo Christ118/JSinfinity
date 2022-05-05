@@ -1,0 +1,2 @@
+g++ bin/shell/src/main.cpp bin/shell/src/system.cpp   bin/shell/src/io.cpp -o ../dist/bin/shell.exe $(pkg-config v8 --libs --cflags)  -lv8_libplatform.dll
+g++ -shared package/Gtkpack.cpp -o ../dist/package/Gtk/Gtkpack.dll $(pkg-config gtkmm-3.0 --libs --cflags) $(pkg-config v8 --libs --cflags)  -lv8_libplatform.dll
