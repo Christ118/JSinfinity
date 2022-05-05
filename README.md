@@ -1,10 +1,11 @@
+<h2 >JS infinity</h2>
 let's compete node js!
 
 JSinfinity is a new and powerful javascript interpreter that allows you to develop the programs you dream of!
 it is possible for any developer to create packages using their own programming language
 
 
-<h3>languages currently supported for package creation :</h3>
+<h3 >languages currently supported for package creation :</h3>
 <ul>
   <li>c++</li>
 <li>javascript (coming soon)</li>
@@ -17,3 +18,5 @@ it is possible for any developer to create packages using their own programming 
 <li>you can work with file</li>
 <li>network(coming soon)</li>
 </ul>
+
+<a>made by elodream</a>
