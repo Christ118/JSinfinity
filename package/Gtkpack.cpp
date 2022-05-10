@@ -3,6 +3,7 @@
 
 
 v8::Local<v8::ObjectTemplate> Gui::guiobjt;
+Glib::RefPtr<Gtk::Application> Gui::app;
 
 v8::Local<v8::ObjectTemplate> Gui::Windowobjt;
 v8::Local<v8::ObjectTemplate> Gui::buttonobjt;
@@ -17,7 +18,6 @@ v8::Local<v8::ObjectTemplate> Gui::labelobjt;
 
 
 
-Glib::RefPtr<Gtk::Application> Gui::app;
 
 std::string argtostr(v8::Local<v8::Value> arg[],int c,v8::Isolate *iso)
 {
@@ -217,11 +217,12 @@ void Gui::newWindow(const v8::FunctionCallbackInfo<v8::Value> & args)
 Gtk::Window * p = new Gtk::Window;
 p->show();
 p->set_default_size(200,200);
-p->set_title("elodream Window");
+p->set_title("Gtk");
 
-v8::Local<v8::Object> o= Gui::Windowobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+v8::Local<v8::Object> o= Windowobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
 
 o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+
 args.GetReturnValue().Set(o);
 
 }
@@ -234,7 +235,7 @@ Gtk::Button * p =new Gtk::Button;
 p->show();
 p->set_label("jslight button");
 v8::Local<v8::Object> o= buttonobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
- 
+
 o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
 args.GetReturnValue().Set(o);
 
@@ -439,6 +440,7 @@ v8::Local<v8::ObjectTemplate> Gui::makeboxobjt(v8::Isolate *iso)
 v8::Local<v8::ObjectTemplate> Gui::makeWindowobjt(v8::Isolate *iso)
 {
     Windowobjt = v8::ObjectTemplate::New(iso);
+    
     Windowobjt->SetInternalFieldCount(1);
     Windowobjt->Set(iso,"setdefaultsize",v8::FunctionTemplate::New(iso,Setdefaultsize));
     Windowobjt->Set(iso,"seticon",v8::FunctionTemplate::New(iso,Seticon));
@@ -448,6 +450,7 @@ v8::Local<v8::ObjectTemplate> Gui::makeWindowobjt(v8::Isolate *iso)
     Windowobjt->Set(iso,"move",v8::FunctionTemplate::New(iso,move));
     Windowobjt->Set(iso,"add",v8::FunctionTemplate::New(iso,Add));
     Windowobjt->Set(iso,"loop",v8::FunctionTemplate::New(iso,Mainloop));
+    
     Windowobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"title"),Gettitle,Settitle);
     return Windowobjt;
 }
@@ -480,6 +483,7 @@ v8::Local<v8::ObjectTemplate> Gui::makeswitchobjt(v8::Isolate *iso)
 {
     switchobjt = v8::ObjectTemplate::New(iso);
     switchobjt->SetInternalFieldCount(1);
+    
     return switchobjt;
 }
 v8::Local<v8::ObjectTemplate> Gui::makeentryobjt(v8::Isolate *iso)
@@ -517,8 +521,9 @@ v8::Local<v8::ObjectTemplate> Gui::makeprogressbarobjt(v8::Isolate *iso)
 v8::Local<v8::ObjectTemplate> Gui::makeguiobjt(v8::Isolate *iso)
 {
     guiobjt = v8::ObjectTemplate::New(iso);
- guiobjt->Set(iso,"Window",Gui::makeWindowobjt(iso));
+
  guiobjt->Set(iso,"Button",Gui::makebuttonobjt(iso));
+  guiobjt->Set(iso,"Window",Gui::makeWindowobjt(iso));
   guiobjt->Set(iso,"Spinbutton",Gui::makespinbuttonobjt(iso));
   guiobjt->Set(iso,"Checkbutton",Gui::makecheckbuttonobjt(iso));
   guiobjt->Set(iso,"Switch",Gui::makeswitchobjt(iso));
@@ -543,8 +548,9 @@ v8::Local<v8::ObjectTemplate> Gui::makeguiobjt(v8::Isolate *iso)
 }
 
 
-extern "C" v8::Local<v8::ObjectTemplate> init(v8::Isolate *iso)
+extern "C"  v8::Local<v8::ObjectTemplate> init(v8::Isolate *iso,char **argv,int argc)
 {
+  Gui::app=Gtk::Application::create(argc,argv);
 
   return Gui::makeguiobjt(iso);
 } 
