@@ -38,16 +38,22 @@ void System::getnextdir(v8::Local<v8::String> property, const v8::PropertyCallba
   DIR *p=getdir(info.Holder());
  
   dirent * next ;
+  FILE *f;
   while ((next=readdir(p))!=NULL)
   {
-
-  if(strchr(next->d_name,'.')==NULL)
+    printf("%s\n",next->d_name);
+f=fopen(next->d_name,"r");
+  if(f==NULL && !strchr(next->d_name,'.') )
   {
     DIR* dir=opendir(next->d_name);
     v8::Local<v8::Object> o= dirobjT->NewInstance(info.GetIsolate()->GetCurrentContext()).ToLocalChecked();
     o->SetInternalField(0,v8::External::New(info.GetIsolate(),dir));
     info.GetReturnValue().Set(o);
     return;
+  }
+  else
+  {
+    fclose(f);
   } 
   }
     info.GetReturnValue().Set(v8::Boolean::New(info.GetIsolate(),false));
@@ -86,6 +92,7 @@ void System::createfolder(const v8::FunctionCallbackInfo<v8::Value> & args)
  mkdir(*path);
   opendirec(args);
 }
+
 
 
 

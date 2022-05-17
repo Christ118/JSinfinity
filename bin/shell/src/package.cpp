@@ -46,19 +46,19 @@ else
 }
 }
 
-void loadpackwithpy(const v8::FunctionCallbackInfo<v8::Value> & args)
+void loadpackwithpy(const v8::FunctionCallbackInfo<v8::Value> & args,std::string path)
 {
     
 }
 /*
 this function load package using  javascript programming 
 */
-void loadpackwithjs(const v8::FunctionCallbackInfo<v8::Value> & args)
+void loadpackwithjs(const v8::FunctionCallbackInfo<v8::Value> & args,std::string path)
 {
     
 }
 
-void loadpackwithruby(const v8::FunctionCallbackInfo<v8::Value> & args)
+void loadpackwithruby(const v8::FunctionCallbackInfo<v8::Value> & args,std::string path)
 {
     
 }
@@ -66,7 +66,7 @@ void loadpackwithruby(const v8::FunctionCallbackInfo<v8::Value> & args)
 /*
 this function load package using perl programming  language
 */
-void loadpackwithperl(const v8::FunctionCallbackInfo<v8::Value> & args)
+void loadpackwithperl(const v8::FunctionCallbackInfo<v8::Value> & args,std::string path)
 {
     
 }
@@ -76,10 +76,10 @@ void PackageManager::package(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
 v8::Isolate *iso=args.GetIsolate();
 v8::String::Utf8Value packagename(iso,args[0]);
-std::string path=std::string( PACKAGE_PATH) +*packagename+"/";
+
+std::string path=std::string(__argv[0]).substr(0,std::string(__argv[0]).find_last_of('\\'))+'/'+std::string( PACKAGE_PATH) +*packagename+"/";
 
 SetDllDirectory(std::string(path+"bin").c_str());
-print_advice(path);
 DIR* dir=opendir(path.c_str());
 dirent * next;
 
@@ -101,18 +101,19 @@ FILE * f=fopen(fpath.append(next->d_name).c_str(),"r");
     
 if(fname=="__init__")
 {
-  nbrinit++;
+
+nbrinit++;
 if(ext==".dll")
 {
 loadpackwithdll(args,fpath);
 }
 else if(ext==".py")
 {
-
+loadpackwithpy(args,fpath);
 }
 else if(ext==".js")
 {
-
+loadpackwithjs(args,fpath);
 }
 else
 {
@@ -131,11 +132,11 @@ print_advice("there is no package initializer");
 }
 
 
- v8::Local<v8::ObjectTemplate> PackageManager::makepackagemanagerobjt(v8::Isolate *iso)
- {
+v8::Local<v8::ObjectTemplate> PackageManager::makepackagemanagerobjt(v8::Isolate *iso)
+{
   packagemanagerobjt= v8::ObjectTemplate::New(iso);
 
   packagemanagerobjt->Set(iso,"package",v8::FunctionTemplate::New(iso,package));
-   
+
   return packagemanagerobjt;
- }
+}

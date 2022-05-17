@@ -1,0 +1,32 @@
+elodream is working on :
+NOTE:  the stars mark the priority
+
+jsinfinity : do all with  java script<c++,javascript(jsinfinity),python>
+
+-package inclusion ***
+-gtk binding***
+-compatibility  with  linux *
+-program object (get info about programm)**
+-package manager** 
+-
+
+
+
+artfana: show your art  <python(django),postresql>
+url:artfana.herokuapp.com
+
+-video publication ***
+-payment *
+-security* 
+-design **
+
+codebuilder:compile your code easily   
+
+-interface (javascript(jsinfinity))*
+-compile option ***
+
+
+
+please support us 
+we're a new socity !
+

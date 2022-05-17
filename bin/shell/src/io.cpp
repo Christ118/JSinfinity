@@ -7,7 +7,7 @@ void Io::print(const v8::FunctionCallbackInfo<v8::Value> & args)
         v8::String::Utf8Value str (args.GetIsolate(),args[i]);
         printf("%s",*str);
     }
-    printf("\n");
+   
 }
 
 

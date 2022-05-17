@@ -8,11 +8,21 @@ js infinity  made by  elodream
 
 
 auto stdconsole=GetStdHandle(STD_OUTPUT_HANDLE);
-  int argn;
-  char **args;
+
+struct
+{
+bool print_result=true;
+bool color=true;//this  option color  the console 
+bool packages=true;//this option allow package use 
+bool console=true;
+bool working_dir_file=false;
+}options;
+
+
 
 void print_advice(std::string  str,short code)
 {
+
   std::string codestr;
   switch (code)
   {
@@ -44,9 +54,9 @@ v8::Local<v8::Context> fulljscontext(v8::Isolate *iso)
 {
   v8::Local<v8::ObjectTemplate>  global = v8::ObjectTemplate::New(iso);
   global->Set(iso,"Sys",System::makesystemobjt(iso));
-
   global->Set(iso,"File",Io::makefileobjt(iso));
   global->Set(iso,"open",v8::FunctionTemplate::New(iso,Io::Open));
+  
   global->Set(iso,"print",v8::FunctionTemplate::New(iso,Io::print));
   global->Set(iso,"input",v8::FunctionTemplate::New(iso,Io::input));
  global->Set(iso,"package",v8::FunctionTemplate::New(iso,PackageManager::package));
@@ -187,6 +197,19 @@ printf("\n");
 void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,char* argv[]) {
 
         std::string h=argv[1];
+        for(int i=1;i<=argc;i++)
+        {
+         /* if(argv[i]="--print-result");
+            
+          else if(argv[i]=="--noconsole");
+
+          else if(argv[i]=="--colored");
+          else if(argv[i]=="--nocolored");
+          else if(argv[i]=="--no-use-package");*/
+        
+          
+
+        }
         SetConsoleTextAttribute(stdconsole,FOREGROUND_INTENSITY) ;
         FILE *f=fopen(argv[1],"rb");
         executejs(iso,readfile(f,iso),v8::String::NewFromUtf8(iso,h.c_str()).ToLocalChecked());        
@@ -198,12 +221,10 @@ void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,char* argv[]) {
 //the main function  
 int main (int argc ,char *argv[])
 {
-  argn=argc;
-  args=argv;
-
-
+  
   v8::V8::InitializeICUDefaultLocation(argv[0]);
   v8::V8::InitializeExternalStartupData(argv[0]);
+  
   std::unique_ptr<v8::Platform> platform=v8::platform::NewDefaultPlatform();
   v8::V8::InitializePlatform(platform.get());
 
@@ -241,7 +262,7 @@ v8::V8::SetFlagsFromCommandLine(&argc, argv, true);
    isolate->Dispose();
    v8::V8::Dispose();
   
-
+system("pause");
   return  0;
 
 }

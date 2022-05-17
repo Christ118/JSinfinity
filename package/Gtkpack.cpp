@@ -15,7 +15,21 @@ v8::Local<v8::ObjectTemplate> Gui::entryobjt;
 v8::Local<v8::ObjectTemplate> Gui::progressbarobjt;
 v8::Local<v8::ObjectTemplate> Gui::imageobjt;
 v8::Local<v8::ObjectTemplate> Gui::labelobjt;
+v8::Local<v8::ObjectTemplate> Gui::statusbarobjt;
+v8::Local<v8::ObjectTemplate> Gui::toolbuttonobjt;
+v8::Local<v8::ObjectTemplate> Gui::comboboxobjt;
+v8::Local<v8::ObjectTemplate> Gui::comboboxtextobjt;
+v8::Local<v8::ObjectTemplate> Gui::toolpaletteobjt;
+v8::Local<v8::ObjectTemplate> Gui::panedobjt;
+v8::Local<v8::ObjectTemplate> Gui::colorchooserdialogobjt;
 
+v8::Local<v8::ObjectTemplate> Gui::notebookobjt;
+
+v8::Local<v8::ObjectTemplate> Gui::gridobjt;
+
+v8::Local<v8::ObjectTemplate> Gui::toolbarobjt;
+v8::Local<v8::ObjectTemplate> Gui::filechooserdialogobjt;
+v8::Local<v8::ObjectTemplate> Gui::scrolledwindowobjt;
 
 
 
@@ -64,7 +78,6 @@ void allsign(std::string funcname,v8::Isolate *  iso,std::string argst,int cn )
  v8::Local<v8::Function> func= global->Get(context ,v8::String::NewFromUtf8(context->GetIsolate(),funcname.c_str()).ToLocalChecked()).ToLocalChecked().As<v8::Function>();
   auto c=func->Call(context,global,cn,argv);
 
-
 }
 
 Gtk::Window * getWindow(v8::Local<v8::Object> obj)
@@ -82,6 +95,113 @@ Gtk::Widget * getWidget(v8::Local<v8::Object> obj)
 
   return static_cast<Gtk::Widget*>(ptr);
 }
+
+Gtk::Dialog * getdialog(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::Dialog*>(ptr);
+}
+
+Gtk::ComboBox * getcombobox(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::ComboBox*>(ptr);
+}
+
+Gtk::ComboBoxText * getcomboboxtext(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::ComboBoxText*>(ptr);
+}
+
+Gtk::Paned * getpaned(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::Paned*>(ptr);
+}
+
+Gtk::ScrolledWindow * getscrolledwindow(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::ScrolledWindow*>(ptr);
+}
+
+Gtk::Grid * getgrid(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::Grid*>(ptr);
+}
+
+Gtk::ToolPalette * gettoolpalette(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::ToolPalette*>(ptr);
+}
+
+Gtk::FileChooser * getfilechooser(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::FileChooser*>(ptr);
+}
+
+Gtk::FileChooserDialog * getfilechooserdialog(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::FileChooserDialog*>(ptr);
+}
+
+Gtk::FontChooserDialog * getfontchooserdialog(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::FontChooserDialog*>(ptr);
+}
+
+
+Gtk::ColorChooserDialog * getcolorchooserdialog(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+  return static_cast<Gtk::ColorChooserDialog*>(ptr);
+}
+
+Gtk::Statusbar * getstatusbar(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+  return static_cast<Gtk::Statusbar*>(ptr);
+}
+
+
+Gtk::InfoBar * infobar(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+  return static_cast<Gtk::InfoBar*>(ptr);
+}
+
+
+
+
 
 Gtk::Button * getbutton(v8::Local<v8::Object> obj)
 {
@@ -114,6 +234,24 @@ Gtk::Image * getimage(v8::Local<v8::Object> obj)
   return static_cast<Gtk::Image*>(ptr);
 }
 
+Gtk::Toolbar  * gettoolbar(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::Toolbar *>(ptr);
+}
+
+
+Gtk::ToolButton * gettoolbutton(v8::Local<v8::Object> obj)
+{
+  v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
+  void* ptr = o->Value();
+
+  return static_cast<Gtk::ToolButton*>(ptr);
+}
+
+
 Gtk::Label * getlabel(v8::Local<v8::Object> obj)
 {
   v8::Local<v8::External> o= obj->GetInternalField(0).As<v8::External>();
@@ -139,6 +277,11 @@ Gtk::Box * getbox(v8::Local<v8::Object> obj)
 }
 
 
+/*
+window functions
+@elodream
+*/
+
 //show or  hide  window
 void Gui::Show(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
@@ -146,6 +289,7 @@ Gtk::Window *p=getWindow(args.Holder());
 p->show();
 
 }
+
 
 //set window title
 void Gui::Settitle(v8::Local<v8::String> property, v8::Local<v8::Value> value,const v8::PropertyCallbackInfo<void> & info)
@@ -212,7 +356,7 @@ p->move(args[0]->Int32Value(args.GetIsolate()->GetCurrentContext()).FromJust(),a
 
 //create a new js window
 
-void Gui::newWindow(const v8::FunctionCallbackInfo<v8::Value> & args)
+void Gui::newwindow(const v8::FunctionCallbackInfo<v8::Value> & args)
 {  
 Gtk::Window * p = new Gtk::Window;
 p->show();
@@ -227,8 +371,12 @@ args.GetReturnValue().Set(o);
 
 }
 
+/*
+button functions
+@elodream
+*/
 // create new button 
-void Gui::newButton(const v8::FunctionCallbackInfo<v8::Value> & args)
+void Gui::newbutton(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
   
 Gtk::Button * p =new Gtk::Button;
@@ -240,7 +388,8 @@ o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
 args.GetReturnValue().Set(o);
 
 }
-/*progressbar function 
+/*
+progressbar functions
 @elodream
 */
 
@@ -257,7 +406,7 @@ args.GetReturnValue().Set(o);
 
 }
 
-//set window title
+//set progress positon 
 void Gui::setprogressposition(v8::Local<v8::String> property, v8::Local<v8::Value> value,const v8::PropertyCallbackInfo<void> & info)
 {
 Gtk::ProgressBar *p=getprogressbar(info.Holder());
@@ -265,7 +414,7 @@ if(value->IsNumber())
 p->set_fraction(value->NumberValue(info.GetIsolate()->GetCurrentContext()).FromJust());
 }
 
-//get window title
+//get progress position  
 void Gui::getprogressposition(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info)
 {
 Gtk::ProgressBar *p=getprogressbar(info.Holder());
@@ -277,7 +426,7 @@ info.GetReturnValue().Set(v8::Number::New(info.GetIsolate(),f));
 /*spin button function 
 @elodream
 */
-void Gui::newSpinbutton(const v8::FunctionCallbackInfo<v8::Value> & args)
+void Gui::newspinbutton(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
   
 Gtk::SpinButton * p =new Gtk::SpinButton;
@@ -323,7 +472,7 @@ args.GetReturnValue().Set(o);
 
 }
 
-void Gui::newCheckbutton(const v8::FunctionCallbackInfo<v8::Value> & args)
+void Gui::newcheckbutton(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
   
 Gtk::CheckButton * p =new Gtk::CheckButton;
@@ -335,7 +484,27 @@ args.GetReturnValue().Set(o);
 
 }
 
-void Gui::newSwitch(const v8::FunctionCallbackInfo<v8::Value> & args)
+/*
+Toolbar  function 
+@elodream
+*/
+void Gui::newtoolbar(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::Toolbar  * p =new Gtk::Toolbar;
+p->show();
+v8::Local<v8::Object> o= toolbarobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+/* 
+switch button  function 
+@elodream
+*/
+void Gui::newswitch(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
   
 Gtk::Switch * p =new Gtk::Switch;
@@ -346,6 +515,269 @@ o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
 args.GetReturnValue().Set(o);
 
 }
+
+/*
+filechooserdialog function 
+@elodream
+
+*/
+void Gui::newfilechooserdialog(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::FileChooserDialog * p =new Gtk::FileChooserDialog("");
+p->show();
+v8::Local<v8::Object> o=filechooserdialogobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+
+
+/*
+grid function 
+@elodream
+
+*/
+void Gui::newgrid(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::Grid * p =new Gtk::Grid;
+p->show();
+v8::Local<v8::Object> o= gridobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+
+
+/*
+notebook function 
+@elodream
+
+*/
+void Gui::newnotebook(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::Notebook * p =new Gtk::Notebook;
+p->show();
+v8::Local<v8::Object> o= notebookobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+
+/*
+combotext function 
+@elodream
+
+*/
+void Gui::newcomboboxtext(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::ComboBoxText * p =new Gtk::ComboBoxText;
+p->show();
+v8::Local<v8::Object> o= comboboxtextobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+
+/*
+Combobox function 
+@elodream
+
+*/
+void Gui::newcombobox(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::ComboBox * p =new Gtk::ComboBox;
+p->show();
+v8::Local<v8::Object> o= comboboxobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+/*
+message dialog function 
+@elodream
+
+*/
+void Gui::newmessagedialog(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::MessageDialog * p =new Gtk::MessageDialog("hello");
+p->show();
+v8::Local<v8::Object> o= buttonobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+/*
+toolpalette functions 
+@elodream
+*/
+
+
+void Gui::newtoolpalette(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::ToolPalette * p =new Gtk::ToolPalette;
+p->show();
+v8::Local<v8::Object> o= toolpaletteobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+/*
+paned functions 
+@elodream
+
+*/
+void Gui::newpaned(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::Paned * p =new Gtk::Paned;
+p->show();
+v8::Local<v8::Object> o= panedobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+/*
+scrolledwindow functions 
+@elodream
+
+*/
+void Gui::newscrolledwindow(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::ScrolledWindow * p =new Gtk::ScrolledWindow;
+p->show();
+v8::Local<v8::Object> o= scrolledwindowobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+/*
+eventbox functions 
+@elodream
+
+*/
+void Gui::neweventbox(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::EventBox * p =new Gtk::EventBox;
+p->show();
+v8::Local<v8::Object> o= buttonobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+/*
+searchbar functions 
+@elodream
+
+*/
+void Gui::newsearchbar(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::SearchBar * p =new Gtk::SearchBar;
+p->show();
+v8::Local<v8::Object> o= buttonobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+/*
+searchentry functions 
+@elodream
+
+*/
+void Gui::newsearchentry(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::SearchEntry * p =new Gtk::SearchEntry;
+p->show();
+v8::Local<v8::Object> o= buttonobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+
+/*
+frame functions 
+@elodream
+
+*/
+void Gui::newframe(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::Frame * p =new Gtk::Frame;
+p->show();
+v8::Local<v8::Object> o= buttonobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+/*
+fontchooser functions 
+@elodream
+
+*/
+void Gui::newfontchooserdialog(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::FontChooserDialog * p =new Gtk::FontChooserDialog;
+p->show();
+v8::Local<v8::Object> o= fontchooserdialogobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+/*
+colorchooserdialog function 
+@elodream
+
+*/
+void Gui::newcolorchooserdialog(const v8::FunctionCallbackInfo<v8::Value> & args)
+{
+  
+Gtk::ColorChooserDialog * p =new Gtk::ColorChooserDialog;
+p->show();
+v8::Local<v8::Object> o= colorchooserdialogobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+ 
+o->SetInternalField(0,v8::External::New(args.GetIsolate(),p));
+args.GetReturnValue().Set(o);
+
+}
+
+/*
+entry functions 
+@elodream
+
+*/
 
 void Gui::newentry(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
@@ -360,8 +792,13 @@ args.GetReturnValue().Set(o);
 
 }
 
+/*
+box functions 
+@elodream
 
-void Gui::newBox(const v8::FunctionCallbackInfo<v8::Value> & args)
+*/
+
+void Gui::newbox(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
   
 Gtk::Box * p ;
@@ -405,7 +842,7 @@ args.GetReturnValue().Set(o);
 
 
 //start event
-void Gui::Mainloop(const v8::FunctionCallbackInfo<v8::Value> & args)
+void Gui::mainloop(const v8::FunctionCallbackInfo<v8::Value> & args)
 {
 Gtk::Window *p=getWindow(args.Holder());
 app->run(*p);
@@ -449,7 +886,7 @@ v8::Local<v8::ObjectTemplate> Gui::makeWindowobjt(v8::Isolate *iso)
     Windowobjt->Set(iso,"setsize",v8::FunctionTemplate::New(iso,setsize));
     Windowobjt->Set(iso,"move",v8::FunctionTemplate::New(iso,move));
     Windowobjt->Set(iso,"add",v8::FunctionTemplate::New(iso,Add));
-    Windowobjt->Set(iso,"loop",v8::FunctionTemplate::New(iso,Mainloop));
+    Windowobjt->Set(iso,"loop",v8::FunctionTemplate::New(iso,mainloop));
     
     Windowobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"title"),Gettitle,Settitle);
     return Windowobjt;
@@ -509,7 +946,34 @@ v8::Local<v8::ObjectTemplate> Gui::makeimageobjt(v8::Isolate *iso)
 }
 
 
-v8::Local<v8::ObjectTemplate> Gui::makeprogressbarobjt(v8::Isolate *iso)
+v8::Local<v8::ObjectTemplate> Gui::maketoolbarobjt(v8::Isolate *iso)
+{
+   toolbarobjt = v8::ObjectTemplate::New(iso);
+    progressbarobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    progressbarobjt->SetInternalFieldCount(1);
+    return toolbarobjt;
+}
+
+
+v8::Local<v8::ObjectTemplate> Gui::maketoolbuttonobjt(v8::Isolate *iso)
+{
+    toolbuttonobjt = v8::ObjectTemplate::New(iso);
+    toolbuttonobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    toolbuttonobjt->SetInternalFieldCount(1);
+    return toolbuttonobjt;
+}
+
+
+v8::Local<v8::ObjectTemplate> Gui::makedialogobjt(v8::Isolate *iso)
+{
+    dialogobjt = v8::ObjectTemplate::New(iso);
+    dialogobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    dialogobjt->SetInternalFieldCount(1);
+    return dialogobjt;
+}
+
+
+v8::Local<v8::ObjectTemplate> Gui::makestatusbarobjt(v8::Isolate *iso)
 {
     progressbarobjt = v8::ObjectTemplate::New(iso);
     progressbarobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
@@ -517,11 +981,51 @@ v8::Local<v8::ObjectTemplate> Gui::makeprogressbarobjt(v8::Isolate *iso)
     return progressbarobjt;
 }
 
+
+v8::Local<v8::ObjectTemplate> Gui::maketextviewobjt(v8::Isolate *iso)
+{
+    textviewobjt = v8::ObjectTemplate::New(iso);
+    textviewobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    textviewobjt->SetInternalFieldCount(1);
+    return textviewobjt;
+}
+
+v8::Local<v8::ObjectTemplate> Gui::makemessagedialogobjt(v8::Isolate *iso)
+{
+    textviewobjt = v8::ObjectTemplate::New(iso);
+    textviewobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    textviewobjt->SetInternalFieldCount(1);
+    return textviewobjt;
+}
+
+v8::Local<v8::ObjectTemplate> Gui::makescrolledwindowobjt(v8::Isolate *iso)
+{
+    textviewobjt = v8::ObjectTemplate::New(iso);
+    textviewobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    textviewobjt->SetInternalFieldCount(1);
+    return textviewobjt;
+}
+
+v8::Local<v8::ObjectTemplate> Gui::makepanedobjt(v8::Isolate *iso)
+{
+    textviewobjt = v8::ObjectTemplate::New(iso);
+    textviewobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    textviewobjt->SetInternalFieldCount(1);
+    return textviewobjt;
+}
+
+v8::Local<v8::ObjectTemplate> Gui::makeaboutdialogobjt(v8::Isolate *iso)
+{
+    textviewobjt = v8::ObjectTemplate::New(iso);
+    textviewobjt->SetAccessor(v8::String::NewFromUtf8Literal(iso,"position"),getprogressposition,setprogressposition);
+    textviewobjt->SetInternalFieldCount(1);
+    
+    return textviewobjt;
+}
 /*make gtk object */
 v8::Local<v8::ObjectTemplate> Gui::makeguiobjt(v8::Isolate *iso)
 {
-    guiobjt = v8::ObjectTemplate::New(iso);
-
+  guiobjt = v8::ObjectTemplate::New(iso);
  guiobjt->Set(iso,"Button",Gui::makebuttonobjt(iso));
   guiobjt->Set(iso,"Window",Gui::makeWindowobjt(iso));
   guiobjt->Set(iso,"Spinbutton",Gui::makespinbuttonobjt(iso));
@@ -531,26 +1035,38 @@ v8::Local<v8::ObjectTemplate> Gui::makeguiobjt(v8::Isolate *iso)
   guiobjt->Set(iso,"Image",Gui::makeimageobjt(iso));
   guiobjt->Set(iso,"Label",Gui::makelabelobjt(iso));
   guiobjt->Set(iso,"Box",Gui::makeboxobjt(iso));
-  
-  guiobjt->Set(iso,"window",v8::FunctionTemplate::New(iso,Gui::newWindow));
-  guiobjt->Set(iso,"button",v8::FunctionTemplate::New(iso,Gui::newButton));
-  guiobjt->Set(iso,"spinbutton",v8::FunctionTemplate::New(iso,Gui::newSpinbutton));
-  guiobjt->Set(iso,"checkbutton",v8::FunctionTemplate::New(iso,Gui::newCheckbutton));
-  guiobjt->Set(iso,"progress",v8::FunctionTemplate::New(iso,Gui::newprogressbar));
 
-  guiobjt->Set(iso,"switchbutton",v8::FunctionTemplate::New(iso,Gui::newSwitch));
+  
+  guiobjt->Set(iso,"window",v8::FunctionTemplate::New(iso,Gui::newwindow));
+  guiobjt->Set(iso,"button",v8::FunctionTemplate::New(iso,Gui::newbutton));
+  guiobjt->Set(iso,"spinbutton",v8::FunctionTemplate::New(iso,Gui::newspinbutton));
+  guiobjt->Set(iso,"checkbutton",v8::FunctionTemplate::New(iso,Gui::newcheckbutton));
+  guiobjt->Set(iso,"progressbar",v8::FunctionTemplate::New(iso,Gui::newprogressbar));
+    guiobjt->Set(iso,"Toolbar ",v8::FunctionTemplate::New(iso,Gui::newtoolbar));
+      guiobjt->Set(iso,"toolbutton",v8::FunctionTemplate::New(iso,Gui::newtoolbutton));
+        guiobjt->Set(iso,"colorchooserdialog",v8::FunctionTemplate::New(iso,Gui::newcolorchooserdialog));
+          guiobjt->Set(iso,"filechooserdialog",v8::FunctionTemplate::New(iso,Gui::newfilechooserdialog));
+            guiobjt->Set(iso,"infobar",v8::FunctionTemplate::New(iso,Gui::newdialog));
+  guiobjt->Set(iso,"progress",v8::FunctionTemplate::New(iso,Gui::newinfobar));
+                                    guiobjt->Set(iso,"buttonbox",v8::FunctionTemplate::New(iso,Gui::newbuttonbox));
+
+
+  guiobjt->Set(iso,"switchbutton",v8::FunctionTemplate::New(iso,Gui::newswitch));
   guiobjt->Set(iso,"entry",v8::FunctionTemplate::New(iso,Gui::newentry));
   guiobjt->Set(iso,"image",v8::FunctionTemplate::New(iso,Gui::newimage));
   guiobjt->Set(iso,"label",v8::FunctionTemplate::New(iso,Gui::newlabel));
-  guiobjt->Set(iso,"box",v8::FunctionTemplate::New(iso,Gui::newBox));
-
+  guiobjt->Set(iso,"box",v8::FunctionTemplate::New(iso,Gui::newbox));
+  
     return guiobjt;
 }
+
+//init function 
 
 
 extern "C"  v8::Local<v8::ObjectTemplate> init(v8::Isolate *iso,char **argv,int argc)
 {
-  Gui::app=Gtk::Application::create(argc,argv);
+
+  Gui::app=Gtk::Application::create("elodream.herokuapp.com");
 
   return Gui::makeguiobjt(iso);
 } 

@@ -3,7 +3,6 @@
 #include "defs.h"
 
 
-
 v8::Local<v8::String> readfile(FILE *file,v8::Isolate *isolate);
 
 class PackageManager
