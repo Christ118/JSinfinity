@@ -7,15 +7,15 @@ js infinity  made by  elodream
 #include"../include/package.h"
 
 
-auto stdconsole=GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE stdconsole=GetStdHandle(STD_OUTPUT_HANDLE);
 
 struct
 {
-bool print_result=true;
-bool color=true;//this  option color  the console 
-bool packages=true;//this option allow package use 
-bool console=true;
-bool working_dir_file=false;
+bool __result=true;
+bool __color=true;//this  option color  the console 
+bool __packages=true;//this option allow package use 
+bool __console=true;
+bool __working_dir_file=false;
 }options;
 
 
@@ -71,29 +71,27 @@ this  function report error in  your javascript  programs
 void ReportException(v8::Isolate* isolate, v8::TryCatch* try_catch) {
   SetConsoleTextAttribute(stdconsole, FOREGROUND_RED|FOREGROUND_INTENSITY);
   v8::HandleScope handle_scope(isolate);
-
   v8::String::Utf8Value exception(isolate, try_catch->Exception());
   const char* exception_string = *exception;
   v8::Local<v8::Message> message = try_catch->Message();
-
   if (message.IsEmpty()) 
   {
-    fprintf(stderr, "%s\n", exception_string);
+    fwprintf(stderr, L"%s\n", exception_string);
   } 
   else 
   {
-    // Print (filename):(line number): (message).
-    v8::String::Utf8Value filename(isolate, message->GetScriptOrigin().ResourceName());
-    
+    v8::String::Utf8Value source(isolate, message->GetScriptOrigin().ResourceName());
     v8::Local<v8::Context> context(isolate->GetCurrentContext());
-    const char* filename_string = *filename;
     int linenum = message->GetLineNumber(context).FromJust();
-    fprintf(stderr, "ERROR in %s line %i \n %s\n", filename_string, linenum, exception_string);
+    fwprintf(stderr, L"error in %s  column:%d ", *source,message->GetEndColumn());
+
+    fwprintf(stderr,L"%s\n",exception_string);
     // Print line of source code.
     v8::String::Utf8Value sourceline(isolate, message->GetSourceLine(context).ToLocalChecked());
     const char* sourceline_string = *sourceline;
-    fprintf(stderr, "%s\n", sourceline_string);
-    // Print wavy underline (GetUnderline is deprecated).
+
+    fwprintf(stderr, L"%s\n", sourceline_string);
+   
     int start = message->GetStartColumn(context).FromJust();
     for (int i = 0; i < start; i++) 
     {
@@ -105,13 +103,17 @@ void ReportException(v8::Isolate* isolate, v8::TryCatch* try_catch) {
       fprintf(stderr, "^");
     }
     fprintf(stderr, "\n");
-    v8::Local<v8::Value> stack_trace_string;
+    if(std::string(*source)!=std::string("(shell)"))
+    {
+      v8::Local<v8::Value> stack_trace_string;
     if (try_catch->StackTrace(context).ToLocal(&stack_trace_string) &&stack_trace_string->IsString() &&stack_trace_string.As<v8::String>()->Length() > 0) 
     {
       v8::String::Utf8Value stack_trace(isolate, stack_trace_string);
       const char* err = *stack_trace;
       fprintf(stderr, "%s\n", err);
     }
+    }
+    
   }
 }
 
@@ -140,6 +142,7 @@ bool executejs(v8::Isolate *iso,v8::Local<v8::String> source,v8::Local<v8::Strin
     if (!script->Run(context).ToLocal(&result)) {
       assert(try_catch.HasCaught());
       ReportException(iso, &try_catch);
+      
       return 0;
     }
     else
@@ -151,19 +154,19 @@ bool executejs(v8::Isolate *iso,v8::Local<v8::String> source,v8::Local<v8::Strin
 
       
       SetConsoleTextAttribute(stdconsole,FOREGROUND_GREEN|FOREGROUND_INTENSITY) ;    
-      printf("%s\n",*res);
+      wprintf(L"%s\n",*res);
     }
     else 
     {
       SetConsoleTextAttribute(stdconsole,FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY) ;
 
-      printf("%s\n",*res);
+      wprintf(L"%s\n",*res);
     } 
   }
-  return true;
-
+  
+   return true;
     }
-    
+     
 }
 
 /*
@@ -171,21 +174,21 @@ bool executejs(v8::Isolate *iso,v8::Local<v8::String> source,v8::Local<v8::Strin
 */
 void jsshell(v8::Local<v8::Context> context , v8::Platform *platform)
 {
-SetConsoleTextAttribute(stdconsole, FOREGROUND_BLUE|FOREGROUND_INTENSITY);
-
 
 std::cout<<"JS shell made by elodream  by  elodream using c++ with (v8 "<< v8::V8::GetVersion()<<") and GTK+ copyright 2022 \nall right reserved please support us"<<std::endl;
 v8::Local<v8::String> name( v8::String::NewFromUtf8Literal(context->GetIsolate(), "(shell)"));
-
-   
+  
 while(true)
 {
-SetConsoleTextAttribute(stdconsole,FOREGROUND_BLUE|FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY) ;
-char buffer[280];
 
+char buffer[280];
+SetConsoleTextAttribute(stdconsole,FOREGROUND_BLUE|FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY) ;
 printf(">");
+
 char* str = fgets(buffer, 280, stdin);
-if (str == NULL) break;
+
+if (std::string(str) =="\n")continue;
+
 v8::HandleScope handle_scope(context->GetIsolate());
 executejs(context->GetIsolate(),v8::String::NewFromUtf8(context->GetIsolate(),str).ToLocalChecked(),name);
 while (v8::platform::PumpMessageLoop(platform, context->GetIsolate()))
@@ -194,26 +197,32 @@ while (v8::platform::PumpMessageLoop(platform, context->GetIsolate()))
 printf("\n");
 }
 
+
+
 void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,char* argv[]) {
 
         std::string h=argv[1];
-        for(int i=1;i<=argc;i++)
+        for(int i=1;i<argc;i++)
         {
-         /* if(argv[i]="--print-result");
-            
-          else if(argv[i]=="--noconsole");
-
-          else if(argv[i]=="--colored");
-          else if(argv[i]=="--nocolored");
-          else if(argv[i]=="--no-use-package");*/
+          std::string arg(argv[i]);
+          if(arg=="--noresult")
+            options.__result=true;
+          else if(arg=="--noconsole")
+            options.__console=false;
+          else if(arg=="--colored")
+          options.__color=true;
+          else if(arg=="--nocolored")
+          options.__color=false;
+          else if(arg=="--no-use-package")
+          options.__packages=false;
         
-          
-
         }
         SetConsoleTextAttribute(stdconsole,FOREGROUND_INTENSITY) ;
         FILE *f=fopen(argv[1],"rb");
-        executejs(iso,readfile(f,iso),v8::String::NewFromUtf8(iso,h.c_str()).ToLocalChecked());        
+        executejs(iso,readfile(f,iso),v8::String::NewFromUtf8(iso,h.c_str()).ToLocalChecked()); 
+        SetConsoleTextAttribute(stdconsole,FOREGROUND_BLUE|FOREGROUND_GREEN|FOREGROUND_RED|FOREGROUND_INTENSITY) ;       
   
+
 }
 
 
@@ -221,10 +230,12 @@ void RunMain(v8::Isolate* iso, v8::Platform* platform, int argc,char* argv[]) {
 //the main function  
 int main (int argc ,char *argv[])
 {
-  
+  SetConsoleOutputCP(CP_UTF8);
   v8::V8::InitializeICUDefaultLocation(argv[0]);
   v8::V8::InitializeExternalStartupData(argv[0]);
+  SetConsoleTitle("JSinfinity");
   
+
   std::unique_ptr<v8::Platform> platform=v8::platform::NewDefaultPlatform();
   v8::V8::InitializePlatform(platform.get());
 
@@ -262,7 +273,9 @@ v8::V8::SetFlagsFromCommandLine(&argc, argv, true);
    isolate->Dispose();
    v8::V8::Dispose();
   
-system("pause");
+
   return  0;
 
 }
+
+

@@ -1,3 +1,5 @@
 cd A:/code/projets/JSinfinity
 g++ bin/shell/src/main.cpp bin/shell/src/system.cpp   bin/shell/src/io.cpp bin/shell/src/package.cpp -o ../dist/bin/shell.exe $(pkg-config v8 --libs --cflags) -lv8_libplatform.dll 
 g++ -shared package/Gtkpack.cpp -o ../dist/package/Gtk/__init__.dll $(pkg-config gtkmm-3.0 --libs --cflags) $(pkg-config v8 --libs --cflags)  -lv8_libplatform.dll
+
+g++ -shared bin/shell/src/main.cpp bin/shell/src/system.cpp    bin/shell/src/io.cpp bin/shell/src/package.cpp -o ../dist/bin/jsinfinity.dll $(pkg-config v8 --libs --cflags) -lv8_libplatform.dll 

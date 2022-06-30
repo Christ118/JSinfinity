@@ -77,7 +77,7 @@ void PackageManager::package(const v8::FunctionCallbackInfo<v8::Value> & args)
 v8::Isolate *iso=args.GetIsolate();
 v8::String::Utf8Value packagename(iso,args[0]);
 
-std::string path=std::string(__argv[0]).substr(0,std::string(__argv[0]).find_last_of('\\'))+'/'+std::string( PACKAGE_PATH) +*packagename+"/";
+std::string path=std::string(__argv[0]).substr(0,std::string(__argv[0]).find_last_of('\\'))+'/'+std::string(package_path) +*packagename+"/";
 
 SetDllDirectory(std::string(path+"bin").c_str());
 DIR* dir=opendir(path.c_str());

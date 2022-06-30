@@ -41,25 +41,61 @@ void System::getnextdir(v8::Local<v8::String> property, const v8::PropertyCallba
   FILE *f;
   while ((next=readdir(p))!=NULL)
   {
-    printf("%s\n",next->d_name);
+  
 f=fopen(next->d_name,"r");
-  if(f==NULL && !strchr(next->d_name,'.') )
+  if(f==NULL && std::string(next->d_name)!=".." && std::string(next->d_name)!=".")
   {
-    DIR* dir=opendir(next->d_name);
+    fclose(f);
+     auto dirpath=std::string(p->dd_name);
+    dirpath.pop_back();
+    dirpath=dirpath.append(next->d_name);
+    DIR* dir=opendir(dirpath.c_str());
+    
+   
+    if(!dir)
+    print_advice("error while reading directory "+dirpath);
+
+
     v8::Local<v8::Object> o= dirobjT->NewInstance(info.GetIsolate()->GetCurrentContext()).ToLocalChecked();
     o->SetInternalField(0,v8::External::New(info.GetIsolate(),dir));
     info.GetReturnValue().Set(o);
     return;
   }
-  else
+  }
+}
+  /*void System::getnextfile(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info)
+{
+  DIR *p=getdir(info.Holder());
+ 
+  dirent * next ;
+  FILE *f;
+  while ((next=readdir(p))!=NULL)
   {
-    fclose(f);
-  } 
+  
+f=fopen(next->d_name,"r");
+  if(f)
+  {
+
+    std::string filepath=std::string(p->dd_name);
+    dirpath.pop_back();
+    filepath=dirpath.append(next->d_name);
+
+    
+
+    if(!dir)
+    print_advice("error while reading directory "+dirpath);
+
+
+    v8::Local<v8::Object> o= dirobjT->NewInstance(info.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+    o->SetInternalField(0,v8::External::New(info.GetIsolate(),dir));
+    info.GetReturnValue().Set(o);
+    return;
+  }
   }
     info.GetReturnValue().Set(v8::Boolean::New(info.GetIsolate(),false));
 
 }
-
+*/
 
 void System::getdircontains(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info)
 {
@@ -169,7 +205,6 @@ v8::Local<v8::ObjectTemplate> System::makesystemobjt(v8::Isolate *iso)
     sysobjt->Set(iso,"cmd",v8::FunctionTemplate::New(iso,systemcmd));
 
   
- 
     return sysobjt;
 }
 

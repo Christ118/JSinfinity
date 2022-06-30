@@ -37,6 +37,7 @@ class Gui
                           static v8::Local<v8::ObjectTemplate>  comboboxobjt;
                             static v8::Local<v8::ObjectTemplate>  widgetobjt;
                               static v8::Local<v8::ObjectTemplate>  aboutdialogobjt;
+                              static v8::Local<v8::ObjectTemplate>  messagedialogobjt;
                               static v8::Local<v8::ObjectTemplate>  gridobjt;
                               static v8::Local<v8::ObjectTemplate>  toolpaletteobjt;
                                 static v8::Local<v8::ObjectTemplate>  notebookobjt;

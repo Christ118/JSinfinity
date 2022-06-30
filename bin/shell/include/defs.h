@@ -1,13 +1,17 @@
 #ifndef JSINFINITY
 #define JSINFINITY
 #define VERSION 1.0
-#include<v8.h>
+
+    #include<v8.h>
 #include <libplatform/libplatform.h>
+
 
 
 #include <stdlib.h>
 #include <assert.h>
 #include<iostream>
+#include<limits.h>
+
 
 #include<windows.h>
 #include<dirent.h>
@@ -22,9 +26,11 @@
 #define CORP_NAME "ELODREAM.INC"
 #define CORP_SLOGAN  "live  your  dream "
 
-#define PACKAGE_PATH "../package/"
 #define UTILS_PATH "../utils/"
 #define JI_PATH "../"
+
+static std::string package_path="../package/";
+
 
 #ifdef WIN32
 #define WINDOW32

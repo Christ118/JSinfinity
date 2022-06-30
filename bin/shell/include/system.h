@@ -30,6 +30,8 @@ static void getdirname(v8::Local<v8::String> property, const v8::PropertyCallbac
 static void getnextdir(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info);
 static void getdircontains(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info);
 
+static void getnextfile(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info);
+static void createfolder(v8::Local<v8::String> property, const v8::PropertyCallbackInfo<v8::Value> & info);
 
 
 

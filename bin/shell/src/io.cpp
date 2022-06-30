@@ -5,9 +5,10 @@ void Io::print(const v8::FunctionCallbackInfo<v8::Value> & args)
     for(int i=0 ;i<args.Length();i++)
     {
         v8::String::Utf8Value str (args.GetIsolate(),args[i]);
-        printf("%s",*str);
+        wprintf(L"%s",*str);
+        
     }
-   
+   printf("\n");
 }
 
 
