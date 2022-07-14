@@ -1,0 +1,18 @@
+# ninja log v5
+54	14082	6794592808053092	package/jltk/CMakeFiles/__init__.dir/imageobject.cpp.obj	bb0d86c4971bc7b6
+37	8275	6794543993107740	bin/shell/CMakeFiles/mainDemo.dir/io.cpp.obj	b3c50212bfab42b7
+59	14154	6794592808693083	package/jltk/CMakeFiles/__init__.dir/tooltipobject.cpp.obj	1ed764124e067677
+49	14301	6794592810373083	package/jltk/CMakeFiles/__init__.dir/buttonobject.cpp.obj	2257e66bc810ec93
+14083	19861	6794592866281898	package/jltk/CMakeFiles/__init__.dir/progressobject.cpp.obj	2206e96c2176bccb
+21067	29635	6794589787508966	package/jltk/lib__init__.a	1d939892a27abc97
+42	8487	6794543995478595	bin/shell/CMakeFiles/mainDemo.dir/package.cpp.obj	38f7bd8882510e91
+47	8291	6794543993420271	bin/shell/CMakeFiles/mainDemo.dir/system.cpp.obj	c2a7e0cb9399c7ef
+11	754	6794595343931292	build.ninja	1e5837e6a9027455
+19861	20516	6794592872622567	package/jltk/lib__init__.dll.a	440d420c7e360bc9
+33	8523	6794543995478595	bin/shell/CMakeFiles/mainDemo.dir/main.cpp.obj	2fcb932d45007871
+49	596	6794549523655473	bin/shell/mainDemo.exe	edbed633ab7d0129
+65	14478	6794592812533063	package/jltk/CMakeFiles/__init__.dir/boxobject.cpp.obj	6efe21b473130300
+44	14414	6794592811893085	package/jltk/CMakeFiles/__init__.dir/jltk.cpp.obj	3878d41a53a1c86f
+70	14344	6794592811013084	package/jltk/CMakeFiles/__init__.dir/spinnerobject.cpp.obj	831403dae274166
+19861	20516	6794592872622567	package/jltk/lib__init__.dll	440d420c7e360bc9
+11	669	6794595343931292	build.ninja	1e5837e6a9027455

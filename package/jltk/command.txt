@@ -1,0 +1,1 @@
+g++ -shared jltk.cpp buttonobject.cpp imageobject.cpp tooltipobject.cpp boxobject.cpp spinnerobject.cpp progressobject.cpp -o  __init__.dll $(pkg-config v8 --libs --cflags)  -lv8_libplatform.dll `fltk-config --cflags`  `fltk-config --ldstaticflags`

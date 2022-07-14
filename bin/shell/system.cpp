@@ -1,5 +1,5 @@
 
-#include"../include/system.h"
+#include"system.h"
 
 v8::Local<v8::ObjectTemplate> System::sysobjt;
 v8::Local<v8::ObjectTemplate> System::dirobjT;

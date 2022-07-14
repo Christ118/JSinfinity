@@ -3,7 +3,7 @@ its posible  to  extend  js infinity fontionnality  by  creating package and
 every devellopper can   create package  with his own  programming language 
 ------------------@elodream---------------------
 */
-#include"../include/package.h"
+#include"package.h"
 
 v8::Local<v8::ObjectTemplate> PackageManager::packagemanagerobjt;
 
