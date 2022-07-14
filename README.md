@@ -3,7 +3,7 @@
 <img src="https://i.goopics.net/forfla.png"  alt="Image">
 </div>
 
-<h2 >JS infinity</h2>
+<h1>JS infinity</h1>
 let's compete node js!
 
 JSinfinity is a new and powerful javascript interpreter that allows you to develop the programs you dream of!
@@ -19,7 +19,7 @@ it is possible for any developer to create packages using their own programming 
 
 <h3>actual functionnality :</h3>
 <ul>
- <li>come with a javascript GTK binding</li>
+ <li>come with a fltk binding</li>
 <li>you can work with file</li>
 <li>network(coming soon)</li>
 </ul>
