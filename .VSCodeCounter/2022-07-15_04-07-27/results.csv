@@ -1,0 +1,12 @@
+"filename", "language", "C++", "CMake", "comment", "blank", "total"
+"a:\code\projets\JSinfinity\bin\cmake_install.cmake", "CMake", 0, 37, 0, 9, 46
+"a:\code\projets\JSinfinity\bin\shell\cmake_install.cmake", "CMake", 0, 33, 0, 7, 40
+"a:\code\projets\JSinfinity\bin\shell\defs.h", "C++", 28, 0, 0, 16, 44
+"a:\code\projets\JSinfinity\bin\shell\io.cpp", "C++", 82, 0, 0, 11, 93
+"a:\code\projets\JSinfinity\bin\shell\io.h", "C++", 16, 0, 0, 11, 27
+"a:\code\projets\JSinfinity\bin\shell\main.cpp", "C++", 207, 0, 21, 36, 264
+"a:\code\projets\JSinfinity\bin\shell\package.cpp", "C++", 99, 0, 11, 32, 142
+"a:\code\projets\JSinfinity\bin\shell\package.h", "C++", 13, 0, 0, 10, 23
+"a:\code\projets\JSinfinity\bin\shell\system.cpp", "C++", 129, 0, 33, 50, 212
+"a:\code\projets\JSinfinity\bin\shell\system.h", "C++", 29, 0, 0, 11, 40
+"Total", "-", 603, 70, 65, 193, 931

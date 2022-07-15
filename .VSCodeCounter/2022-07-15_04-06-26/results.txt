@@ -1,0 +1,50 @@
+Date : 2022-07-15 04:06:26
+Directory : a:\code\projets\JSinfinity\package\jltk
+Total : 25 files,  699 codes, 27 comments, 137 blanks, all 863 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         24 |        666 |         27 |        130 |        823 |
+| CMake    |          1 |         33 |          0 |          7 |         40 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                           |         25 |        699 |         27 |        137 |        863 |
++-------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                    | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------+----------+------------+------------+------------+------------+
+| a:\code\projets\JSinfinity\package\jltk\boxobject.cpp       | C++      |         20 |          3 |          1 |         24 |
+| a:\code\projets\JSinfinity\package\jltk\browserobjt.cpp     | C++      |         20 |          0 |          5 |         25 |
+| a:\code\projets\JSinfinity\package\jltk\buttonobject.cpp    | C++      |         20 |          1 |          2 |         23 |
+| a:\code\projets\JSinfinity\package\jltk\cmake_install.cmake | CMake    |         33 |          0 |          7 |         40 |
+| a:\code\projets\JSinfinity\package\jltk\colorchooser.cpp    | C++      |         20 |          1 |          6 |         27 |
+| a:\code\projets\JSinfinity\package\jltk\doublewindow.cpp    | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\filechooser.cpp     | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\imageobject.cpp     | C++      |         20 |          1 |          3 |         24 |
+| a:\code\projets\JSinfinity\package\jltk\input.cpp           | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\jltk.cpp            | C++      |        112 |          4 |         20 |        136 |
+| a:\code\projets\JSinfinity\package\jltk\jltk.h              | C++      |        103 |          4 |          4 |        111 |
+| a:\code\projets\JSinfinity\package\jltk\labelobject.cpp     | C++      |         20 |          1 |          3 |         24 |
+| a:\code\projets\JSinfinity\package\jltk\menubar.cpp         | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\menuitem.cpp        | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\progressobject.cpp  | C++      |         20 |          0 |          3 |         23 |
+| a:\code\projets\JSinfinity\package\jltk\radiobutton.cpp     | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\scroll.cpp          | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\scrollbar.cpp       | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\spinnerobject.cpp   | C++      |         20 |          0 |          2 |         22 |
+| a:\code\projets\JSinfinity\package\jltk\texteditor.cpp      | C++      |         20 |          1 |          6 |         27 |
+| a:\code\projets\JSinfinity\package\jltk\tooltipobject.cpp   | C++      |         20 |          0 |          4 |         24 |
+| a:\code\projets\JSinfinity\package\jltk\treeitem.cpp        | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\treeobject.cpp      | C++      |         20 |          0 |          5 |         25 |
+| a:\code\projets\JSinfinity\package\jltk\valueslider.cpp     | C++      |         21 |          1 |          6 |         28 |
+| a:\code\projets\JSinfinity\package\jltk\windowobject.cpp    | C++      |         21 |          1 |          6 |         28 |
+| Total                                                       |          |        699 |         27 |        137 |        863 |
++-------------------------------------------------------------+----------+------------+------------+------------+------------+
