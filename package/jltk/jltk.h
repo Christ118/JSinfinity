@@ -63,7 +63,28 @@ public:
     static v8::Local<v8::ObjectTemplate> makeboxobjt(v8::Isolate *iso);
     static v8::Local<v8::ObjectTemplate> makemenubarobjt(v8::Isolate *iso);
     // jltk functions
+    static void newimage(const v8::FunctionCallbackInfo<v8::Value> &args);
     static void newwindow(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newtooltip(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newlabel(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newprogress(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newdoublewindow(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newtree(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newspinner(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newbutton(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newbox(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newfilechooser(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newcolorchooser(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newmenubar(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newtreeitem(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newtexteditor(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newvalueslider(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newwscroll(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newscrollbar(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newfileinput(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newradiobutton(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newbrowser(const v8::FunctionCallbackInfo<v8::Value> &args);
+    static void newslider(const v8::FunctionCallbackInfo<v8::Value> &args);
 
     static Fl_Window *getwindow(v8::Local<v8::Object> obj);
     static Fl_Label *getlabel(v8::Local<v8::Object> obj);
@@ -86,7 +107,5 @@ public:
     static Fl_Radio_Button *getradiobutton(v8::Local<v8::Object> obj);
     static Fl_File_Input *getfileinput(v8::Local<v8::Object> obj);
 };
-
-
 
 #endif

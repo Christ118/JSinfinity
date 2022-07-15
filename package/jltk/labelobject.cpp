@@ -7,6 +7,13 @@ Fl_Label *Jltk::getlabel(v8::Local<v8::Object> obj)
 
     return static_cast<Fl_Label *>(ptr);
 }
+void Jltk::newtooltip(const v8::FunctionCallbackInfo<v8::Value> &args)
+{
+    Fl_Tooltip *p = new Fl_Tooltip();
+    v8::Local<v8::Object> o = windowobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+    o->SetInternalField(0, v8::External::New(args.GetIsolate(), p));
+    args.GetReturnValue().Set(o);
+}
 
 // this function make a javascript binding for fl_label class
 v8::Local<v8::ObjectTemplate> Jltk::makelabelobjt(v8::Isolate *iso)

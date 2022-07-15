@@ -7,7 +7,14 @@ Fl_Box *Jltk::getbox(v8::Local<v8::Object> obj)
 
     return static_cast<Fl_Box *>(ptr);
 }
-
+// box constructor
+void Jltk::newbox(const v8::FunctionCallbackInfo<v8::Value> &args)
+{
+    Fl_Box *p = new Fl_Box(0,0,0,0);
+    v8::Local<v8::Object> o = boxobjt->NewInstance(args.GetIsolate()->GetCurrentContext()).ToLocalChecked();
+    o->SetInternalField(0, v8::External::New(args.GetIsolate(), p));
+    args.GetReturnValue().Set(o);
+}
 // this function make a javascript binding for fl_box class
 v8::Local<v8::ObjectTemplate> Jltk::makeboxobjt(v8::Isolate *iso)
 {
